@@ -16,7 +16,7 @@ A função começa por definir um contador a zero. De seguida, percorre a string
 
 ## 3. Contar Vogais
 
-Definimos uma string de referência com todas as vogais (maiúsculas e minúsculas: "aeiouAEIOU") e criamos um contador. A função percorre a string alvo usando um ciclo for e, para cada letra, verifica se esta existe dentro da string de referência. Se existir, considera-se uma vogal e incrementa-se o contador.
+Define-se uma string de referência com todas as vogais (maiúsculas e minúsculas: "aeiouAEIOU") e cria-se um contador. A função percorre a string alvo usando um ciclo for e, para cada letra, verifica se esta existe dentro da string de referência. Se existir, considera-se uma vogal e incrementa-se o contador.
 
 ---
 
