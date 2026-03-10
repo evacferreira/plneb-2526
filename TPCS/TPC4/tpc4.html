@@ -1,0 +1,306 @@
+html_header = r"""
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bomboémia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --laranja: #FF5A00;
+            --laranja-claro: #f7dcbf; 
+            --laranja-hover: #FFE4D6; 
+            --branco: #ffffff; 
+            --fundo-geral: #FAFAFA; 
+            --texto-escuro: #1e2430; 
+            --cinza-texto: #4A5568; 
+            --borda-suave: rgba(0, 0, 0, 0.05); 
+        }
+
+        body {
+            background-color: var(--fundo-geral);
+            color: var(--cinza-texto);
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            scroll-behavior: smooth;
+        }
+
+        strong { color: var(--laranja); font-weight: 800; }
+
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            padding: 20px 5%;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            position: fixed;
+            width: 90%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid var(--laranja-claro);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+        }
+
+        nav a {
+            color: var(--texto-escuro);
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+            transition: 0.3s;
+        }
+
+        nav a:hover { color: var(--laranja); }
+
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('fundo.jpg.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding: 20px;
+        }
+
+        .logo-oficial {
+            width: 220px;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid var(--laranja);
+            box-shadow: 0 0 40px rgba(255, 90, 0, 0.4);
+            margin-bottom: 30px;
+            margin-top: 60px;
+            background: var(--branco);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            margin: 0;
+            color: var(--branco);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--branco);
+            max-width: 600px;
+            margin-top: 15px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+        }
+
+        section { padding: 100px 10%; }
+        .bg-seccao { background-color: var(--laranja-claro); }
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--texto-escuro);
+            text-transform: uppercase;
+            margin-top: 0;
+            margin-bottom: 50px;
+            display: inline-block;
+            border-bottom: 4px solid var(--laranja);
+            padding-bottom: 10px;
+        }
+
+        .festival-container { display: flex; flex-wrap: wrap; gap: 40px; align-items: center; }
+        .dbas-img {
+            flex: 1; min-width: 300px; max-width: 450px; width: 100%; height: auto;
+            object-fit: cover; border-radius: 16px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+        .festival-texto { flex: 1; min-width: 300px; font-size: 1.1rem; line-height: 1.8; color: var(--cinza-texto); }
+
+        /* AGENDA ESTÁTICA */
+        .agenda-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .card-evento {
+            background: var(--branco); border: 2px solid var(--laranja-claro); border-bottom: 4px solid var(--laranja);
+            border-radius: 16px; padding: 35px 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+        .data-evento { font-size: 2.2rem; font-weight: 900; color: var(--laranja); display: inline-block; margin-bottom: 8px; }
+        .nome-evento { font-size: 1.3rem; font-weight: 800; color: var(--texto-escuro); margin-bottom: 5px; }
+
+        /* SLIDER CSS */
+        .slider-container {
+            position: relative; max-width: 1000px; margin: 0 auto; overflow: hidden;
+            border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); background: #000;
+        }
+        .mySlides { display: none; }
+        .mySlides img { width: 100%; height: 500px; object-fit: cover; vertical-align: middle; }
+        .prev, .next {
+            cursor: pointer; position: absolute; top: 50%; transform: translateY(-50%);
+            padding: 20px; color: white; font-weight: bold; font-size: 24px;
+            background-color: rgba(0,0,0,0.3); text-decoration: none; user-select: none; z-index: 10;
+        }
+        .next { right: 0; border-radius: 3px 0 0 3px; }
+        .prev { left: 0; border-radius: 0 3px 3px 0; }
+        .prev:hover, .next:hover { background-color: var(--laranja); }
+
+        .contactos { text-align: center; padding: 100px 10%; background: linear-gradient(180deg, var(--laranja-claro) 0%, var(--branco) 100%); border-top: 1px solid var(--laranja-claro); }
+        .redes-sociais { margin-top: 40px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .btn-rede { display: inline-block; background-color: var(--branco); color: var(--texto-escuro); border: 2px solid var(--laranja); padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: 600; transition: 0.3s; text-transform: uppercase; }
+        .btn-rede:hover { background-color: var(--laranja); color: var(--branco); transform: translateY(-3px); }
+        .btn-email { display: inline-block; background-color: var(--laranja); color: var(--branco); font-size: 1.3rem; font-weight: 800; padding: 20px 50px; border-radius: 50px; text-decoration: none; margin-top: 20px; transition: 0.3s; text-transform: uppercase; box-shadow: 0 10px 30px rgba(255, 90, 0, 0.25); }
+        .btn-email:hover { background-color: var(--texto-escuro); transform: translateY(-4px); }
+
+        footer { background-color: var(--texto-escuro); text-align: center; padding: 30px; color: var(--laranja-claro); font-size: 0.85rem; letter-spacing: 1px; }
+    </style>
+</head>
+"""
+
+html_body = r"""
+<body>
+    <nav>
+        <a href="#sobre-nos">Sobre nós</a>
+        <a href="#junta-te">Junta-te a Nós</a>
+        <a href="#festival">Do Bira ao Samba</a>
+        <a href="#agenda">Próximas Atuações</a>
+        <a href="#galeria">Galeria</a>
+        <a href="#contactos">Contactos</a>
+    </nav>
+
+    <div class="hero">
+        <img src="https://graph.facebook.com/bomboemia/picture?width=800&height=800" alt="Logótipo Bomboémia" class="logo-oficial">
+        <h1>BOMBOÉMIA</h1>
+        <p>Grupo de Percussão da Universidade do Minho</p>
+    </div>
+
+    <section id="sobre-nos" class="bg-seccao">
+        <h2>Sobre Nós</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center;">
+            
+            <div style="flex: 1; min-width: 300px;">
+                <p style="font-size: 1.1rem; line-height: 1.8; color: var(--cinza-texto); margin: 0;">
+                    A Bomboémia é um grupo misto de estudantes ou não estudantes da Universidade do Minho. 
+                    Surgiu em <strong>2004</strong>, de uma reestruturação do Grupo de Cabeçudos, Gigantones e Zés Pereiras da Universidade do Minho e está integrada na ARCUM - Associação Recreativa e Cultural Universitária do Minho. 
+                    O nosso projeto resulta numa enorme variedade de sons e estilos de percussão, partindo dos bons <strong>ritmos minhotos e populares portugueses</strong>, e viajando até ao samba e às batucadas do Brasil.
+                </p>
+            </div>
+
+            <div style="flex: 1; min-width: 300px; display: flex; justify-content: center;">
+                <img src="sobrenos.jpeg" alt="Bomboémia em atuação" style="width: 100%; max-width: 500px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            </div>
+
+        </div>
+    </section>
+
+    <section id="junta-te">
+        <div style="text-align: right; margin-bottom: 50px;">
+            <h2 style="font-size: 2.5rem; font-weight: 900; color: var(--texto-escuro); text-transform: uppercase; display: inline-block; border-bottom: 4px solid var(--laranja); padding-bottom: 10px; margin: 0;">
+                Junta-te a nós
+            </h2>
+        </div>
+        
+        <div style="text-align: right; display: flex; flex-direction: column; align-items: flex-end;"> 
+            <p style="font-size: 1.2rem; max-width: 800px; color: var(--cinza-texto); line-height: 1.8; margin-left: auto; margin-right: 0;">
+                Queres fazer parte desta <strong>família laranja</strong>? Não precisas de saber tocar nem de ter instrumento, basta trazeres vontade e energia! 
+                É só aparecer num dos nossos ensaios e a malta ensina-te tudo. Vem sentir o nosso ritmo!
+            </p>
+            
+            <div style="margin-top: 30px; border-right: 4px solid var(--laranja); padding-right: 20px; border-left: none;">
+                <h3 style="color: var(--texto-escuro); font-size: 1.5rem; text-transform: uppercase; margin-bottom: 15px;">
+                    Ensaios
+                </h3>
+                <p style="font-size: 1.1rem; margin: 5px 0;"><strong>Dias:</strong> Segundas e Quintas-feiras</p>
+                <p style="font-size: 1.1rem; margin: 5px 0;"><strong>Hora:</strong> 21:00</p>
+                <p style="font-size: 1.1rem; margin: 5px 0;">
+                    <strong>Local:</strong> ARCUM (por baixo do Bar Académico de Braga)<br>
+                    <span style="font-size: 0.95rem; color: var(--cinza-texto); opacity: 0.8; display: block; margin-top: 5px;">
+                        Rua da Fundação Calouste Gulbenkian
+                    </span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="festival" class="bg-seccao">
+        <h2>Do Bira ao Samba</h2>
+        <div class="festival-container">
+            <img src="dbas.jpeg" alt="Festival Do Bira ao Samba" class="dbas-img">
+            <div class="festival-texto">
+                <p>O <strong>Do Bira ao Samba</strong> é o nosso grande palco aberto à cidade. Durante <strong>2 dias</strong> no início de Agosto, a festa tem entrada livre e gratuita na Praça do Município, em Braga.</p>
+                <p>É o momento onde a academia minhota e a comunidade se unem num rufar de caixas, bombos e timbalões, mostrando porque a Bomboémia e os grupos convidados são o verdadeiro espírito da percussão.  Dois dias de festa onde se encontram a cultura popular portuguesa, o Bira, e a cultura brasileira, o Samba,  com concertos de palco, animação de rua, Arraial Minhoto, Cortejo de Carnaval Fora D’Época e muito mais.</p>
+        </div>
+    </section>
+
+    <section id="agenda">
+        <h2>Próximas Atuações</h2>
+        <div class="agenda-grid">
+            <div class="card-evento">
+                <span class="data-evento">14 MARÇO</span>
+                <div class="nome-evento">X Gristolândia</div>
+                <div style="color: var(--cinza-texto); font-weight: 500;">Porto</div>
+            </div>
+            <div class="card-evento">
+                <span class="data-evento">10 MAIO</span>
+                <div class="nome-evento">Enterro da Gata</div>
+                <div style="color: var(--cinza-texto); font-weight: 500;">Fórum Braga</div>
+            </div>
+            <div class="card-evento">
+                <span class="data-evento">2 e 3 AGOSTO</span>
+                <div class="nome-evento">Festival Do Bira ao Samba</div>
+                <div style="color: var(--cinza-texto); font-weight: 500;">Praça do Município, Braga</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="galeria" class="bg-seccao">
+        <h2>A Nossa Galeria</h2>
+        <div class="slider-container">
+            <div class="mySlides fade"><img src="grupo.jpg"></div>
+            <div class="mySlides fade"><img src="grupo1.jpg"></div>
+            <div class="mySlides fade"><img src="grupo2.jpg"></div>
+            <div class="mySlides fade"><img src="grupo3.jpg"></div>
+            
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        </div>
+    </section>
+
+    <div class="contactos" id="contactos">
+        <h2>Fala Connosco</h2>
+        <p style="font-size: 1.1rem; color: var(--cinza-texto); margin-bottom: 30px;">Tens alguma dúvida ou queres a Bomboémia no teu evento?</p>
+        <a href="mailto:bomboemia@arcum.pt" class="btn-email">bomboemia@arcum.pt</a>
+        <div class="redes-sociais">
+            <a href="https://www.facebook.com/bomboemia" target="_blank" class="btn-rede">Facebook</a>
+            <a href="https://instagram.com/bomboemia" target="_blank" class="btn-rede">Instagram</a>
+            <a href="http://www.arcum.pt" target="_blank" class="btn-rede">Site ARCUM</a>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 Bomboémia - Grupo de Percussão da Universidade do Minho.
+    </footer>
+
+    <script>
+        let slideIndex = 1;
+        showSlides(slideIndex);
+        function plusSlides(n) { showSlides(slideIndex += n); }
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("mySlides");
+            if (n > slides.length) {slideIndex = 1}    
+            if (n < 1) {slideIndex = slides.length}
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";  
+            }
+            slides[slideIndex-1].style.display = "block";  
+        }
+    </script>
+</body>
+</html>
+"""
