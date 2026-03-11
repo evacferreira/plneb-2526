@@ -3,7 +3,7 @@
 
 Este projeto consiste numa *Landing Page* (página única) responsiva e interativa, desenvolvida para apresentar a identidade, a história, a agenda e os contactos do grupo, bem como para atrair novos membros e promover o nosso festival "Do Bira ao Samba".
 
-## Funcionalidades e Secções do Site
+## Funcionalidades e Secções da Página
 
 O site está estruturado numa única página com navegação fluida (*smooth scroll*) entre as seguintes secções:
 
@@ -13,11 +13,11 @@ O site está estruturado numa única página com navegação fluida (*smooth scr
 
 * **Sobre Nós:** Uma breve história sobre a fundação do grupo e a ligação à ARCUM.
 
-* **Próximas Atuações (Agenda):** Uma grelha interativa de cartões com as datas e locais dos próximos espetáculos.
+* **Próximas Atuações :** Uma grelha interativa de cartões com as datas e locais dos próximos espetáculos.
 
 * **Do Bira ao Samba:** Destaque para o grande festival de percussão organizado pelo grupo.
 
-* **20 Anos Bomboémia (Vlogs):** Secção dedicada aos bastidores com um reprodutor de vídeo incorporado (`iframe`) do YouTube.
+* **20 Anos Bomboémia:** Secção dedicada aos bastidores com um reprodutor de vídeo incorporado (`iframe`) do YouTube.
 
 * **A Nossa Galeria:** Um *slider* de imagens interativo construído com JavaScript, permitindo visualizar fotografias do grupo através de setas de navegação.
 
@@ -43,7 +43,7 @@ Para facilitar a manutenção e leitura do código, o site foi construído de fo
 
 O esquema de cores foi guardado em variáveis globais no início do CSS, funcionando como a paleta oficial do site. Se for necessário mudar uma cor no futuro, basta alterar aqui e aplica-se ao site inteiro.
 
-💡 **Explicação Prática:** Em vez de escrever o código da cor laranja dezenas de vezes pelo site todo, usamos a variável `--laranja`. É como ter um "balde de tinta" com um rótulo. Se o grupo mudar a sua cor amanhã, basta mudar a cor dentro desse único balde no `:root` e o site atualiza-se por completo!
+**Explicação Prática:** Em vez de escrever o código da cor laranja dezenas de vezes pelo site todo, usamos a variável `--laranja`. É como ter um "balde de tinta" com um rótulo. Se o grupo mudar a sua cor amanhã, basta mudar a cor dentro desse único balde no `:root` e o site atualiza-se por completo!
 
 | Variável | Cor  | Onde é utilizada | 
 | ----- | ----- | ----- | 
@@ -69,9 +69,9 @@ Para evitar a repetição de código, foram criadas classes utilitárias baseada
   * **Explicação:** O CSS Grid fornece um poderoso sistema bidimensional. A função auto-fit aliada ao minmax faz com que o navegador calcule intrinsecamente quantas colunas de pelo menos 300px cabem no ecrã. Quando o espaço transversal é insuficiente, os elementos transitam de forma fluida para a linha inferior, maximizando a área de ecrã disponível.
 
 
-### 3. Funções e Variáveis de JavaScript (O Motor da Galeria)
+### 3. Funções e Variáveis de JavaScript 
 
-O slider fotográfico é suportado por uma lógica de controlo de estado desenvolvida em Vanilla JavaScript, alojada no final do documento para garantir o carregamento prévio do DOM.
+O slider fotográfico é suportado por uma lógica de controlo de estado desenvolvida JavaScript, que está no final do documento para garantir o carregamento prévio do DOM.
 
 * **Explicação:**  A variável global slideIndex atua como um controlador de estado (State Management). Ao interagir com as setas de navegação, disparamos eventos que forçam o script a atualizar a interface do utilizador: o algoritmo itera por todos os elementos da galeria alterando a propriedade CSS display para none (ocultação total) e, logo de seguida, injeta display: block estritamente na imagem correspondente ao índice ativo. Isto previne quebras de layout e assegura uma renderização exata.
 
