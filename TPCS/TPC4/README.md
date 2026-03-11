@@ -27,7 +27,7 @@ O site está estruturado numa única página com navegação fluida (*smooth scr
 
 ## Tecnologias Utilizadas
 
-* **HTML5:** Estrutura semântica do documento (os blocos e "tijolos" do site).
+* **HTML5:** Estrutura semântica do documento.
 
 * **CSS3:** Utilização de variáveis CSS, Flexbox, CSS Grid e animações (`@keyframes`) (a pintura e a arrumação dos elementos).
 
@@ -45,14 +45,14 @@ O esquema de cores foi guardado em variáveis globais no início do CSS, funcion
 
 💡 **Explicação Prática:** Em vez de escrever o código da cor laranja dezenas de vezes pelo site todo, usamos a variável `--laranja`. É como ter um "balde de tinta" com um rótulo. Se o grupo mudar a sua cor amanhã, basta mudar a cor dentro desse único balde no `:root` e o site atualiza-se por completo!
 
-| Variável | Cor (Hexadecimal) | Onde é utilizada | 
+| Variável | Cor  | Onde é utilizada | 
 | ----- | ----- | ----- | 
 | `--laranja` | `#FF5A00` | Títulos `strong`, sublinhados, botões principais, realces (`:hover`). | 
 | `--laranja-claro` | `#f7dcbf` | Fundos de secções alternadas e bordas suaves. | 
 | `--branco` | `#ffffff` | Fundo de cartões, texto sobre fundos escuros. | 
 | `--fundo-geral` | `#FAFAFA` | Cor de fundo principal do `body`. | 
-| `--texto-escuro` | `#1e2430` | Títulos (`h1`, `h2`), rodapé e elementos de maior peso visual. | 
-| `--cinza-texto` | `#4A5568` | Cor base para leitura longa (`p`). | 
+| `--texto-escuro` | `#1e2430` | Títulos (`h1`, `h2`), rodapé. | 
+| `--cinza-texto` | `#4A5568` | Cor base para (`p`). | 
 
 ### 2. Classes de Layout e Estrutura (CSS)
 
