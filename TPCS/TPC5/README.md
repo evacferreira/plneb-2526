@@ -19,7 +19,7 @@ Este programa em Python procede à recolha de informações médicas do portal *
 | :--- | :--- | :--- |
 | **Requests** | Cliente HTTP | Simplicidade na gestão de sessões e headers. |
 | **BeautifulSoup4** | HTML Parser | Permite navegar no DOM de forma robusta, mesmo com HTML mal formado. |
-| **Python** | Linguagem | Uso de *Dictionary Union Operators* (`|`) para merge eficiente de dados. |
+| **Python** | Linguagem | Uso de Dictionary Union Operators (`|`) para merge eficiente de dados. |
 | **JSON UTF-8** | Formato de Saída | Interoperabilidade total com sistemas web e preservação de acentuação portuguesa. |
 
 ## Estrutura do JSON 
