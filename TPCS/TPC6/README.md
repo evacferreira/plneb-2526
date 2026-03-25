@@ -16,7 +16,7 @@ Ao usar o spacy.load("pt_core_news_lg"), ativamos um modelo de linguagem robusto
 
 Quando executamos o comando `doc = nlp(texto)`, o spaCy processa o texto bruto através de uma "linha de montagem" (pipeline) que realiza três operações automáticas num único passo. Primeiro, ocorre a **tokenização**, onde o modelo divide o texto contínuo em unidades básicas chamadas "tokens" (palavras individuais, sinais de pontuação e símbolos). A partir desses tokens, realiza-se a **sentencização**, fase em que o spaCy reconhece a estrutura gramatical e divide o livro inteiro em frases lógicas, percebendo onde começa e acaba cada ideia. Por fim, ocorre a **extração de entidades (NER)**, onde o modelo analisa o contexto de cada palavra para detetar e classificar informações importantes, identificando automaticamente os nomes próprios no texto e atribuindo-lhes uma etiqueta (como a marcação `PER` para personagens).
 
-### 3. Filtragem e Unicidade por Frase
+### 3. Filtragem
 O código percorre cada frase (`doc.sents`). Para cada uma:
 * Procura entidades com a etiqueta `PER`.
 * Guarda o nome numa lista temporária, mas apenas se ele ainda não estiver lá (`not in personagens_na_frase`). 
