@@ -1,0 +1,59 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+    <title>{{designacao}} | Detalhe</title>
+    <style>
+        .detail-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .badge-category {
+            background: #e0f2f1;
+            color: #00796b;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .definition-box {
+            background: white;
+            border-radius: 30px;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+        .definition-box::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 100%;
+            background: #00796b;
+        }
+        .description-text {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            color: #4a5568;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="detail-container">
+        <a href="/conceitos" class="text-decoration-none text-muted mb-4 d-inline-block hover-link">
+            <i class="bi bi-arrow-left"></i> Voltar ao Dicionário
+        </a>
+
+        <div class="definition-box shadow-lg p-5 mt-2">
+            <span class="badge-category mb-3 d-inline-block">Conceito Clínico</span>
+            <h1 class="display-4 fw-bold text-dark mb-4">{{designacao}}</h1>
+            
+            <div class="description-text">
+                {{descricao}}
+            
+        </div>
+    </div>
+{% endblock %}

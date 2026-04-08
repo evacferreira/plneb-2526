@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+    <title>MedDict | Home</title>
+    <style>
+        .hero-section {
+            padding: 100px 0;
+            text-align: center;
+        }
+        .hero-title {
+            font-size: 4.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            color: #004d40;
+            margin-bottom: 2rem;
+            letter-spacing: -2px;
+        }
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: #636e72;
+            max-width: 600px;
+            margin: 0 auto 3rem auto;
+            line-height: 1.6;
+        }
+        .floating-icon {
+            font-size: 4rem;
+            color: #00796b;
+            margin-bottom: 20px;
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        .stats-box {
+            background: #f1f8f7;
+            padding: 40px;
+            border-radius: 40px;
+            margin-top: 50px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <section class="hero-section">
+        <div class="floating-icon">
+            <i class="bi bi-heart-pulse"></i> </div>
+        <h1 class="hero-title">Dicionário <br>Conceitos Médicos</h1>
+        <p class="hero-subtitle">
+            Explore de A a Z a terminologia técnica da área da saúde. <br>
+            Definições precisas e rápidas para facilitar a sua consulta.
+        </p>
+        
+        <div class="d-flex justify-content-center gap-3">
+            <a href="/conceitos" class="btn-medical btn-lg">Explorar Glossário</a>
+            <a href="/api/conceitos" class="btn btn-outline-dark rounded-pill px-4 py-3 fw-bold">Documentação API</a>
+        
+        </div>
+    </section>
+{% endblock %}
