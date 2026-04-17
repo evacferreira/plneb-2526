@@ -1,0 +1,164 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+    <title>MedDict | Pesquisa</title>
+    <style>
+        :root {
+            --primary-dark: #004d40;
+            --soft-bg: #f1f8f7;
+            --accent: #00796b;
+        }
+
+        .search-header {
+            padding: 60px 0 40px 0;
+            text-align: center;
+        }
+
+        .search-title {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+            letter-spacing: -1.5px;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Estilização do formulário */
+        .search-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .input-group-custom {
+            background: var(--soft-bg);
+            border-radius: 20px;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .input-group-custom:focus-within {
+            background: #e6f2f0;
+            box-shadow: 0 0 0 3px rgba(0, 121, 107, 0.1);
+        }
+
+        .input-group-custom input {
+            border: none;
+            background: transparent;
+            padding: 10px;
+            font-size: 1.1rem;
+            width: 100%;
+            outline: none;
+        }
+
+        /* Destaques (Bold) nos resultados */
+        b {
+            color: var(--accent);
+            background: rgba(0, 121, 107, 0.08);
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-weight: 700;
+        }
+
+        /* Cards de Resultados */
+        .result-card {
+            border: none;
+            border-radius: 25px;
+            background: white;
+            padding: 25px;
+            height: 100%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+
+        .result-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+        }
+
+        .btn-view {
+            color: var(--accent);
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-view:hover {
+            color: var(--primary-dark);
+        }
+
+        .badge-results {
+            background: var(--primary-dark);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class="container pb-5">
+    <div class="search-header">
+        <h2 class="search-title">O que procura?</h2>
+        
+        <div class="search-container">
+            <form action="/pesquisar" method="GET">
+                <div class="input-group-custom mb-4">
+                    <i class="bi bi-search text-muted"></i>
+                    <input type="text" name="query" placeholder="Ex: Hipertensão, Glóbulo..." value="{{ query }}" required>
+                    <button class="btn-medical py-2 px-4" type="submit">Pesquisar</button>
+                </div>
+
+                <div class="d-flex gap-4 justify-content-center">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" name="case_sensitive" id="caseCheck" {% if case_sensitive %}checked{% endif %}>
+                        <label class="form-check-label fw-bold text-muted" for="caseCheck" style="font-size: 0.9rem;">Case Sensitive</label>
+                    </div>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" name="word_boundary" id="wordCheck" {% if word_boundary %}checked{% endif %}>
+                        <label class="form-check-label fw-bold text-muted" for="wordCheck" style="font-size: 0.9rem;">Palavra Exata</label>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {% if query %}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 class="fw-bold text-dark m-0">Resultados</h4>
+        <span class="badge-results">{{ resultados|length }} encontrados</span>
+    </div>
+
+    <div class="row g-4">
+        {% for res in resultados %}
+        <div class="col-md-6 col-lg-4">
+            <div class="result-card">
+                <h5 class="fw-extrabold text-dark mb-3">{{ res.desig_label | safe }}</h5>
+                <p class="text-secondary small line-clamp-3 mb-4">
+                    {{ res.descricao | safe }}
+                </p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <a href="/conceitos/{{ res.designacao }}" class="btn-view">
+                        Ler Definição <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="col-12 text-center py-5">
+            <i class="bi bi-emoji-frown fs-1 text-muted"></i>
+            <p class="text-muted mt-3">Ups! Não encontrámos nada para essa pesquisa.</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
